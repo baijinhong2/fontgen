@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+/* -------------------------------------------------------------------------
+ * FontGen design tokens
+ *
+ * Minimal, neutral, content-first. Single accent color (indigo) + a soft
+ * grayscale surface stack. No dark mode toggle for v1 — keep the chrome
+ * as quiet as possible so the converted Unicode characters stay the star.
+ * ------------------------------------------------------------------------ */
+
+:root {
+  --bg: 250 250 252;
+  --surface: 255 255 255;
+  --surface-alt: 248 250 252;
+  --border: 226 232 240;
+  --border-strong: 203 213 225;
+  --ink: 15 23 42;
+  --ink-soft: 71 85 105;
+  --ink-faint: 148 163 184;
+  --accent: 79 70 229;
+  --accent-hover: 67 56 202;
+  --accent-soft: 238 242 255;
+  --accent-border: 199 210 254;
+  --success: 22 163 74;
+}
+
+@theme inline {
+  --color-bg: rgb(var(--bg));
+  --color-surface: rgb(var(--surface));
+  --color-surface-alt: rgb(var(--surface-alt));
+  --color-border: rgb(var(--border));
+  --color-border-strong: rgb(var(--border-strong));
+  --color-ink: rgb(var(--ink));
+  --color-ink-soft: rgb(var(--ink-soft));
+  --color-ink-faint: rgb(var(--ink-faint));
+  --color-accent: rgb(var(--accent));
+  --color-accent-hover: rgb(var(--accent-hover));
+  --color-accent-soft: rgb(var(--accent-soft));
+  --color-accent-border: rgb(var(--accent-border));
+  --color-success: rgb(var(--success));
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-display: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+}
+
+html,
+body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--ink));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* The result list sometimes contains emoji-range Unicode. Make sure they
+ * render at the user's intended size rather than the OS font's emoji
+ * metrics, which can dwarf neighboring letters. */
+.fontgen-output {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* The sticky input shell needs its own scroll-shadow when content scrolls
+ * underneath — keep the fade subtle, the widget stays visually quiet. */
+.sticky-shell-shadow {
+  box-shadow: 0 1px 0 rgb(var(--border));
+}
+.sticky-shell-shadow.is-stuck {
+  box-shadow: 0 1px 8px rgba(15, 23, 42, 0.04);
+}
+
+/* Hide horizontal scrollbar on the category chip strip while keeping it
+ * scrollable. The arrow buttons appear only when overflow is detected. */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Screen-reader-only utility — slightly cheaper than Tailwind's `sr-only`
+ * equivalent and keeps our HTML output consistent. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
