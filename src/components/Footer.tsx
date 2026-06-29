@@ -103,11 +103,28 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom row: copyright + legal links */}
+        {/* Bottom row: copyright + Buildlist badge + legal links */}
         <div className="mt-10 flex flex-col items-start gap-3 border-t border-border pt-6 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {year} {BRAND_NAME}.art — A free font generator.
-          </p>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            <p>
+              © {year} {BRAND_NAME}.art — A free font generator.
+            </p>
+            <a
+              href="https://buildlist.io"
+              target="_blank"
+              rel="noopener"
+              aria-label="Featured on Buildlist"
+            >
+              {/* External SVG badge — using <img> instead of next/image to avoid
+                  needing `images.remotePatterns` config for a 3rd-party asset. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://buildlist.io/badge.svg"
+                alt="Featured on Buildlist"
+                style={{ height: "40px", width: "auto" }}
+              />
+            </a>
+          </div>
           <div className="flex flex-wrap gap-x-4 gap-y-1">
             <Link
               href="/privacy"
