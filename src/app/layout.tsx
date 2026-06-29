@@ -60,10 +60,16 @@ export const metadata: Metadata = {
     images: [DEFAULT_OG_IMAGE],
   },
   icons: {
+    // Declared biggest-first so browsers / Googlebot pick the largest
+    // available. Google requires favicon >= 48px to render in SERPs —
+    // declaring 48x48 and 64x64 explicitly covers that requirement even
+    // on browsers that don't open the multi-size .ico.
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-64x64.png", type: "image/png", sizes: "64x64" },
+      { url: "/favicon-48x48.png", type: "image/png", sizes: "48x48" },
       { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
       { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { url: "/favicon.ico", sizes: "any" },
     ],
     apple: "/apple-touch-icon.png",
   },
@@ -93,11 +99,14 @@ const websiteJsonLd = {
     "@type": "Organization",
     name: `${BRAND_NAME}.art`,
     url: SITE_URL,
+    // Logo must be a square (or near-square) image — Google rejects
+    // text-heavy OG banners as Organization logos. /logo.png is the
+    // 256x256 square brand mark used in the header next to the wordmark.
     logo: {
       "@type": "ImageObject",
-      url: `${SITE_URL}/og.png`,
-      width: OG_IMAGE_WIDTH,
-      height: OG_IMAGE_HEIGHT,
+      url: `${SITE_URL}/logo.png`,
+      width: 256,
+      height: 256,
     },
   },
   potentialAction: {
