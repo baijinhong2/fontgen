@@ -57,12 +57,20 @@ body {
 
 /* The result list sometimes contains emoji-range Unicode. Make sure they
  * render at the user's intended size rather than the OS font's emoji
- * metrics, which can dwarf neighboring letters. */
+ * metrics, which can dwarf neighboring letters.
+ *
+ * font-family cascade: tailwinds ship these exotic-script Noto fonts via
+ * the <link> in layout.tsx, so they get picked up first. The trailing
+ * Noto Sans / Arial Unicode / Segoe UI Symbol entries cover systems where
+ * the Google Fonts CDN is unreachable (e.g. offline dev / strict CSP). */
 .fontgen-output {
   font-size: 1.5rem;
   line-height: 1.6;
   word-break: break-word;
   overflow-wrap: anywhere;
+  font-family: "Noto Sans Runic", "Noto Sans Gothic", "Noto Sans Cherokee",
+    "Noto Sans Vai", "Noto Sans Tifinagh", "Apple Symbols", "Segoe UI Symbol",
+    "Noto Sans", "Arial Unicode MS", system-ui, sans-serif;
 }
 
 /* The sticky input shell needs its own scroll-shadow when content scrolls

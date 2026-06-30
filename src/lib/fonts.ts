@@ -1030,7 +1030,36 @@ const compressed = (s: string) =>
     .replace(/\u200A+$/, "");
 
 // ---------------------------------------------------------------------------
-// Group N: Composition styles — combine two existing styles into a new one.
+// Group N: 花字 (Flower / ornamental emoji wraps) — 20 new styles
+// ---------------------------------------------------------------------------
+// Each entry wraps every non-space character between two emoji. Used heavily
+// in Chinese / Japanese / Korean social-media names and bios as decorative
+// "花字" (huā zì) — flower text. Pairs cleanly with the existing heart /
+// star / diamond wraps; this batch extends the floral / ornament vocabulary.
+
+const cherryBlossom = (s: string) => wrap(s, "🌸", "🌸"); // U+1F338
+const rose = (s: string) => wrap(s, "🌹", "🌹");           // U+1F339
+const sunflower = (s: string) => wrap(s, "🌻", "🌻");      // U+1F33B
+const tulip = (s: string) => wrap(s, "🌷", "🌷");         // U+1F337
+const hibiscus = (s: string) => wrap(s, "🌺", "🌺");       // U+1F33A
+const bouquet = (s: string) => wrap(s, "💐", "💐");       // U+1F490
+const whiteFlower = (s: string) => wrap(s, "💮", "💮");   // U+1F4AE (Japanese stamp)
+const wiltedRose = (s: string) => wrap(s, "🥀", "🥀");    // U+1F940
+const lotus = (s: string) => wrap(s, "🪷", "🪷");         // U+1FAB7
+const crown = (s: string) => wrap(s, "👑", "👑");         // U+1F451
+const butterfly = (s: string) => wrap(s, "🦋", "🦋");      // U+1F98B
+const sparkles = (s: string) => wrap(s, "✨", "✨");      // U+2728
+const ribbonBow = (s: string) => wrap(s, "🎀", "🎀");     // U+1F380
+const glowingStar = (s: string) => wrap(s, "🌟", "🌟");   // U+1F31F
+const heartRibbon = (s: string) => wrap(s, "💝", "💝");   // U+1F49D
+const pinkHeart = (s: string) => wrap(s, "💗", "💗");     // U+1F497
+const sparklingHeart = (s: string) => wrap(s, "💖", "💖"); // U+1F496
+const crescentMoon = (s: string) => wrap(s, "🌙", "🌙");  // U+1F319
+const sun = (s: string) => wrap(s, "☀️", "☀️");           // U+2600 + U+FE0F
+const rainbow = (s: string) => wrap(s, "🌈", "🌈");       // U+1F308
+
+// ---------------------------------------------------------------------------
+// Group O: Composition styles — combine two existing styles into a new one.
 // These produce genuinely distinct visual results: e.g. cursive-strikethrough
 // is a flowing script with a line through each letter, visually different
 // from either cursive or strikethrough alone.
@@ -1069,6 +1098,144 @@ const cursiveDoubleUnderline = compose(cursive, "\u0333");
 const boldDoubleUnderline = compose(boldSans, "\u0333");
 const italicDoubleUnderline = compose(italic, "\u0333");
 const frakturUnderline = compose(fraktur, "\u0332");
+
+// ---- v6 additions: 20 more letterform-style compositions (sans / mono / double-struck / serif / cursive bases) ----
+// Each base letter is a real Unicode block; the decoration (strikethrough /
+// underline / double-underline) is the same overlay used by existing
+// compositions but applied to a fresh base — visually distinct from any
+// existing style because the underlying glyphs differ.
+
+// Sans-Serif family (3)
+const sansSerifStrikethrough = compose(sansSerif, "\u0336");
+const sansSerifUnderline = compose(sansSerif, "\u0332");
+const sansSerifDoubleUnderline = compose(sansSerif, "\u0333");
+
+// Sans Italic family (3)
+const sansItalicStrikethrough = compose(sansItalic, "\u0336");
+const sansItalicUnderline = compose(sansItalic, "\u0332");
+const sansItalicDoubleUnderline = compose(sansItalic, "\u0333");
+
+// Sans Bold Italic family (3)
+const sansBoldItalicStrikethrough = compose(sansBoldItalic, "\u0336");
+const sansBoldItalicUnderline = compose(sansBoldItalic, "\u0332");
+const sansBoldItalicDoubleUnderline = compose(sansBoldItalic, "\u0333");
+
+// Monospace family (3)
+const monospaceStrikethrough = compose(monospace, "\u0336");
+const monospaceUnderline = compose(monospace, "\u0332");
+const monospaceDoubleUnderline = compose(monospace, "\u0333");
+
+// Double-Struck family (3)
+const doubleStruckStrikethrough = compose(doubleStruck, "\u0336");
+const doubleStruckUnderline = compose(doubleStruck, "\u0332");
+const doubleStruckDoubleUnderline = compose(doubleStruck, "\u0333");
+
+// Bold Serif family (3)
+const boldSerifStrikethrough = compose(boldSerif, "\u0336");
+const boldSerifUnderline = compose(boldSerif, "\u0332");
+const boldSerifDoubleUnderline = compose(boldSerif, "\u0333");
+
+// Bold Cursive family (2)
+const boldCursiveStrikethrough = compose(boldCursive, "\u0336");
+const boldCursiveUnderline = compose(boldCursive, "\u0332");
+
+// ---------------------------------------------------------------------------
+// Group P: New Unicode letterform blocks — real alphabets from outside the
+// Latin / Greek / Cyrillic family. Each block ships a-z (with gaps where the
+// script lacks a visual Latin counterpart) plus a few strikethrough /
+// underline / dot-above composition variants.
+// ---------------------------------------------------------------------------
+
+/**
+ * Gothic Unicode block (U+10330..U+1034F). The Gothic alphabet proper — a
+ * distinct script from Fraktur (which is the German blackletter *style*).
+ * Looks like actual 4th-century runic-influenced Gothic letterforms.
+ */
+const GOTHIC_MAP: Record<string, string> = {
+  a: "𐌰", b: "𐌱", d: "𐌳", e: "𐌴", f: "𐍅", g: "𐌲",
+  h: "𐌷", i: "𐌹", j: "𐌾", k: "𐌺", l: "𐌻", m: "𐌼",
+  n: "𐌽", o: "𐍈", p: "𐍀", q: "𐌵", r: "𐍁", s: "𐍂",
+  t: "𐍃", u: "𐌿", w: "𐍄", x: "𐍆", z: "𐌶",
+};
+const gothic = (s: string) =>
+  Array.from(s)
+    .map((c) => GOTHIC_MAP[c.toLowerCase()] ?? c)
+    .join("");
+const gothicStrikethrough = compose(gothic, "̶");
+const gothicUnderline = compose(gothic, "̲");
+const gothicDoubleUnderline = compose(gothic, "̳");
+const gothicDotAbove = compose(gothic, "̇");
+
+/**
+ * Runic Unicode block (U+16A0..U+16F0). Viking / Old Norse rune alphabet.
+ * Maps by sound equivalence (ᚠ → f, ᚱ → r, etc.).
+ */
+const RUNIC_MAP: Record<string, string> = {
+  a: "ᚨ", b: "ᛒ", d: "ᛞ", e: "ᛖ", f: "ᚠ", g: "ᚷ",
+  h: "ᚺ", i: "ᛁ", j: "ᛃ", k: "ᚲ", l: "ᛚ", m: "ᛗ",
+  n: "ᚾ", o: "ᛟ", p: "ᛈ", r: "ᚱ", s: "ᛊ", t: "ᛏ",
+  u: "ᚢ", v: "ᚡ", w: "ᚥ", y: "ᚣ", z: "ᛉ",
+};
+const runic = (s: string) =>
+  Array.from(s)
+    .map((c) => RUNIC_MAP[c.toLowerCase()] ?? c)
+    .join("");
+const runicStrikethrough = compose(runic, "̶");
+const runicUnderline = compose(runic, "̲");
+const runicDoubleUnderline = compose(runic, "̳");
+const runicDotAbove = compose(runic, "̇");
+
+/**
+ * Cherokee syllabary (U+13A0..U+13FF). Latin letters are mapped to
+ * visually-interesting Cherokee syllables — output reads as exotic script.
+ */
+const CHEROKEE_MAP: Record<string, string> = {
+  a: "Ꭰ", b: "Ꮖ", c: "Ꮯ", d: "Ꮧ", e: "Ꮔ", f: "Ꮈ",
+  g: "Ꮆ", h: "Ꭿ", i: "Ꭲ", j: "Ꮸ", k: "Ꭷ", l: "Ꮈ",
+  m: "Ꮇ", n: "Ꮑ", o: "Ꭳ", p: "Ꮉ", r: "Ꮢ", s: "Ꮝ",
+  t: "Ꮤ", u: "Ꮜ", v: "Ꮼ", w: "Ꮹ", x: "Ꮂ", y: "Ꭹ",
+  z: "Ꮠ",
+};
+const cherokee = (s: string) =>
+  Array.from(s)
+    .map((c) => CHEROKEE_MAP[c.toLowerCase()] ?? c)
+    .join("");
+const cherokeeStrikethrough = compose(cherokee, "̶");
+const cherokeeUnderline = compose(cherokee, "̲");
+
+/**
+ * Vai syllabary (U+A500..U+A63F). West African syllabary historically used
+ * for the Vai language. Output reads as geometric Vai script.
+ */
+const VAI_MAP: Record<string, string> = {
+  a: "ꔀ", b: "ꖌ", c: "ꖏ", d: "ꖕ", e: "ꖆ", f: "ꖈ",
+  g: "ꔱ", h: "ꔃ", i: "ꔂ", j: "ꕋ", k: "ꕷ", l: "ꖂ",
+  m: "ꖆ", n: "ꖇ", o: "ꖊ", p: "ꖐ", r: "ꖑ", s: "ꖤ",
+  t: "ꖍ", u: "ꖎ", v: "ꖏ", w: "ꖀ", x: "ꖁ", y: "ꖂ",
+  z: "ꖃ",
+};
+const vai = (s: string) =>
+  Array.from(s)
+    .map((c) => VAI_MAP[c.toLowerCase()] ?? c)
+    .join("");
+const vaiStrikethrough = compose(vai, "̶");
+const vaiUnderline = compose(vai, "̲");
+
+/**
+ * Tifinagh (U+2D30..U+2D7F). Berber / Amazigh alphabet — geometric
+ * letterforms (circles, lines, dots) widely used in North Africa.
+ */
+const TIFINAGH_MAP: Record<string, string> = {
+  a: "ⴰ", b: "ⴱ", d: "ⴷ", e: "ⴻ", f: "ⴼ", g: "ⴳ",
+  h: "ⵀ", i: "ⵉ", j: "ⵊ", k: "ⴽ", l: "ⵍ", m: "ⵎ",
+  n: "ⵏ", o: "ⵓ", p: "ⵒ", r: "ⵔ", s: "ⵙ", t: "ⵜ",
+  u: "ⵓ", v: "ⴼ", w: "ⵡ", x: "ⵅ", y: "ⵖ", z: "ⵣ",
+};
+const tifinagh = (s: string) =>
+  Array.from(s)
+    .map((c) => TIFINAGH_MAP[c.toLowerCase()] ?? c)
+    .join("");
+const tifinaghStrikethrough = compose(tifinagh, "̶");
 
 // ---------------------------------------------------------------------------
 // Registry
@@ -1906,6 +2073,518 @@ export const FONT_STYLES: readonly FontStyle[] = [
     map: stretched,
     preview: stretched("Hello"),
   },
+
+  // ---- v5 additions: 花字 (flower / ornamental emoji wraps, 20 styles) ----
+  // The classic Chinese / Japanese / Korean social-media "花字" look: each
+  // letter framed between two decorative emoji. Pairs visually with the
+  // existing heart / star / diamond wraps, but with floral + celestial
+  // vocabulary that's most commonly seen in QQ, WeChat, and Instagram bios.
+  {
+    slug: "cherry-blossom",
+    name: "Cherry Blossom",
+    description: "Each letter framed in pink cherry blossoms (🌸) for a soft floral look.",
+    category: "accent",
+    map: cherryBlossom,
+    preview: cherryBlossom("Hello"),
+  },
+  {
+    slug: "rose",
+    name: "Rose",
+    description: "Each letter wrapped in red roses (🌹) for a romantic vibe.",
+    category: "accent",
+    map: rose,
+    preview: rose("Hello"),
+  },
+  {
+    slug: "sunflower",
+    name: "Sunflower",
+    description: "Each letter framed in bright sunflowers (🌻) for a sunny feel.",
+    category: "accent",
+    map: sunflower,
+    preview: sunflower("Hello"),
+  },
+  {
+    slug: "tulip",
+    name: "Tulip",
+    description: "Each letter wrapped in pink tulips (🌷) for an elegant floral look.",
+    category: "accent",
+    map: tulip,
+    preview: tulip("Hello"),
+  },
+  {
+    slug: "hibiscus",
+    name: "Hibiscus",
+    description: "Each letter framed in tropical hibiscus blooms (🌺).",
+    category: "accent",
+    map: hibiscus,
+    preview: hibiscus("Hello"),
+  },
+  {
+    slug: "bouquet",
+    name: "Bouquet",
+    description: "Each letter wrapped in a mixed flower bouquet (💐).",
+    category: "accent",
+    map: bouquet,
+    preview: bouquet("Hello"),
+  },
+  {
+    slug: "white-flower",
+    name: "White Flower",
+    description: "Each letter framed in a Japanese-style white flower stamp (💮).",
+    category: "accent",
+    map: whiteFlower,
+    preview: whiteFlower("Hello"),
+  },
+  {
+    slug: "wilted-rose",
+    name: "Wilted Rose",
+    description: "Each letter wrapped in a wilted rose (🥀) for an emo aesthetic.",
+    category: "accent",
+    map: wiltedRose,
+    preview: wiltedRose("Hello"),
+  },
+  {
+    slug: "lotus",
+    name: "Lotus",
+    description: "Each letter framed in a sacred lotus blossom (🪷).",
+    category: "accent",
+    map: lotus,
+    preview: lotus("Hello"),
+  },
+  {
+    slug: "crown",
+    name: "Crown",
+    description: "Each letter crowned (👑) for a regal, royal-fan look.",
+    category: "accent",
+    map: crown,
+    preview: crown("Hello"),
+  },
+  {
+    slug: "butterfly",
+    name: "Butterfly",
+    description: "Each letter framed in colorful butterflies (🦋).",
+    category: "accent",
+    map: butterfly,
+    preview: butterfly("Hello"),
+  },
+  {
+    slug: "sparkles",
+    name: "Sparkles",
+    description: "Each letter wrapped in sparkly stars (✨) for a magical feel.",
+    category: "accent",
+    map: sparkles,
+    preview: sparkles("Hello"),
+  },
+  {
+    slug: "ribbon-bow",
+    name: "Ribbon Bow",
+    description: "Each letter wrapped with a pink ribbon bow (🎀).",
+    category: "accent",
+    map: ribbonBow,
+    preview: ribbonBow("Hello"),
+  },
+  {
+    slug: "glowing-star",
+    name: "Glowing Star",
+    description: "Each letter framed in a glowing yellow star (🌟).",
+    category: "accent",
+    map: glowingStar,
+    preview: glowingStar("Hello"),
+  },
+  {
+    slug: "heart-ribbon",
+    name: "Heart Ribbon",
+    description: "Each letter wrapped in a heart-and-ribbon gift (💝).",
+    category: "accent",
+    map: heartRibbon,
+    preview: heartRibbon("Hello"),
+  },
+  {
+    slug: "pink-heart",
+    name: "Pink Heart",
+    description: "Each letter framed in a beating pink heart (💗).",
+    category: "accent",
+    map: pinkHeart,
+    preview: pinkHeart("Hello"),
+  },
+  {
+    slug: "sparkling-heart",
+    name: "Sparkling Heart",
+    description: "Each letter wrapped in a sparkling pink heart (💖).",
+    category: "accent",
+    map: sparklingHeart,
+    preview: sparklingHeart("Hello"),
+  },
+  {
+    slug: "crescent-moon",
+    name: "Crescent Moon",
+    description: "Each letter framed in a crescent moon (🌙) for a night-sky feel.",
+    category: "accent",
+    map: crescentMoon,
+    preview: crescentMoon("Hello"),
+  },
+  {
+    slug: "sun",
+    name: "Sun",
+    description: "Each letter wrapped in bright sunshine (☀️).",
+    category: "accent",
+    map: sun,
+    preview: sun("Hello"),
+  },
+  {
+    slug: "rainbow",
+    name: "Rainbow",
+    description: "Each letter framed in a rainbow (🌈) for a colorful vibe.",
+    category: "accent",
+    map: rainbow,
+    preview: rainbow("Hello"),
+  },
+
+  // ---- v6 additions: letterform-style compositions (20 styles) ----
+  // Each entry pairs a real Unicode letterform base with a strikethrough /
+  // underline / double-underline overlay. The base letters differ from any
+  // existing composition, so the rendered glyphs are visually fresh — closer
+  // to "another bold" than to an emoji-wrapped decoration.
+
+  // Sans-Serif family (3)
+  {
+    slug: "sans-serif-strikethrough",
+    name: "Sans-Serif Strikethrough",
+    description: "Clean sans-serif letters with a horizontal line struck through each.",
+    category: "decorative",
+    map: sansSerifStrikethrough,
+    preview: sansSerifStrikethrough("Hello"),
+  },
+  {
+    slug: "sans-serif-underline",
+    name: "Sans-Serif Underline",
+    description: "Clean sans-serif letters with each letter underlined.",
+    category: "decorative",
+    map: sansSerifUnderline,
+    preview: sansSerifUnderline("Hello"),
+  },
+  {
+    slug: "sans-serif-double-underline",
+    name: "Sans-Serif Double Underline",
+    description: "Clean sans-serif letters with each letter double-underlined.",
+    category: "decorative",
+    map: sansSerifDoubleUnderline,
+    preview: sansSerifDoubleUnderline("Hello"),
+  },
+
+  // Sans Italic family (3)
+  {
+    slug: "sans-italic-strikethrough",
+    name: "Sans Italic Strikethrough",
+    description: "Slanted sans-italic letters with a line struck through each.",
+    category: "decorative",
+    map: sansItalicStrikethrough,
+    preview: sansItalicStrikethrough("Hello"),
+  },
+  {
+    slug: "sans-italic-underline",
+    name: "Sans Italic Underline",
+    description: "Slanted sans-italic letters with each letter underlined.",
+    category: "decorative",
+    map: sansItalicUnderline,
+    preview: sansItalicUnderline("Hello"),
+  },
+  {
+    slug: "sans-italic-double-underline",
+    name: "Sans Italic Double Underline",
+    description: "Slanted sans-italic letters with each letter double-underlined.",
+    category: "decorative",
+    map: sansItalicDoubleUnderline,
+    preview: sansItalicDoubleUnderline("Hello"),
+  },
+
+  // Sans Bold Italic family (3)
+  {
+    slug: "sans-bold-italic-strikethrough",
+    name: "Sans Bold Italic Strikethrough",
+    description: "Heavy slanted sans-bold-italic letters with a line struck through each.",
+    category: "decorative",
+    map: sansBoldItalicStrikethrough,
+    preview: sansBoldItalicStrikethrough("Hello"),
+  },
+  {
+    slug: "sans-bold-italic-underline",
+    name: "Sans Bold Italic Underline",
+    description: "Heavy slanted sans-bold-italic letters with each letter underlined.",
+    category: "decorative",
+    map: sansBoldItalicUnderline,
+    preview: sansBoldItalicUnderline("Hello"),
+  },
+  {
+    slug: "sans-bold-italic-double-underline",
+    name: "Sans Bold Italic Double Underline",
+    description: "Heavy slanted sans-bold-italic letters with each letter double-underlined.",
+    category: "decorative",
+    map: sansBoldItalicDoubleUnderline,
+    preview: sansBoldItalicDoubleUnderline("Hello"),
+  },
+
+  // Monospace family (3)
+  {
+    slug: "monospace-strikethrough",
+    name: "Monospace Strikethrough",
+    description: "Fixed-width terminal letters with a line struck through each.",
+    category: "decorative",
+    map: monospaceStrikethrough,
+    preview: monospaceStrikethrough("Hello"),
+  },
+  {
+    slug: "monospace-underline",
+    name: "Monospace Underline",
+    description: "Fixed-width terminal letters with each letter underlined.",
+    category: "decorative",
+    map: monospaceUnderline,
+    preview: monospaceUnderline("Hello"),
+  },
+  {
+    slug: "monospace-double-underline",
+    name: "Monospace Double Underline",
+    description: "Fixed-width terminal letters with each letter double-underlined.",
+    category: "decorative",
+    map: monospaceDoubleUnderline,
+    preview: monospaceDoubleUnderline("Hello"),
+  },
+
+  // Double-Struck family (3)
+  {
+    slug: "double-struck-strikethrough",
+    name: "Double-Struck Strikethrough",
+    description: "Outlined chalkboard letters with a line struck through each.",
+    category: "decorative",
+    map: doubleStruckStrikethrough,
+    preview: doubleStruckStrikethrough("Hello"),
+  },
+  {
+    slug: "double-struck-underline",
+    name: "Double-Struck Underline",
+    description: "Outlined chalkboard letters with each letter underlined.",
+    category: "decorative",
+    map: doubleStruckUnderline,
+    preview: doubleStruckUnderline("Hello"),
+  },
+  {
+    slug: "double-struck-double-underline",
+    name: "Double-Struck Double Underline",
+    description: "Outlined chalkboard letters with each letter double-underlined.",
+    category: "decorative",
+    map: doubleStruckDoubleUnderline,
+    preview: doubleStruckDoubleUnderline("Hello"),
+  },
+
+  // Bold Serif family (3)
+  {
+    slug: "bold-serif-strikethrough",
+    name: "Bold Serif Strikethrough",
+    description: "Heavy serif letters with a line struck through each.",
+    category: "decorative",
+    map: boldSerifStrikethrough,
+    preview: boldSerifStrikethrough("Hello"),
+  },
+  {
+    slug: "bold-serif-underline",
+    name: "Bold Serif Underline",
+    description: "Heavy serif letters with each letter underlined.",
+    category: "decorative",
+    map: boldSerifUnderline,
+    preview: boldSerifUnderline("Hello"),
+  },
+  {
+    slug: "bold-serif-double-underline",
+    name: "Bold Serif Double Underline",
+    description: "Heavy serif letters with each letter double-underlined.",
+    category: "decorative",
+    map: boldSerifDoubleUnderline,
+    preview: boldSerifDoubleUnderline("Hello"),
+  },
+
+  // Bold Cursive family (2)
+  {
+    slug: "bold-cursive-strikethrough",
+    name: "Bold Cursive Strikethrough",
+    description: "Heavy script letters with a line struck through each.",
+    category: "decorative",
+    map: boldCursiveStrikethrough,
+    preview: boldCursiveStrikethrough("Hello"),
+  },
+  {
+    slug: "bold-cursive-underline",
+    name: "Bold Cursive Underline",
+    description: "Heavy script letters with each letter underlined.",
+    category: "decorative",
+    map: boldCursiveUnderline,
+    preview: boldCursiveUnderline("Hello"),
+  },
+
+  // ---- v7 additions: 7 new Unicode letterform blocks (22 styles total) ----
+  // Each block ships its base mapping plus 1-4 strikethrough / underline /
+  // double-underline / dot-above composition variants. Visually distinct
+  // from every existing Latin / Greek / Cyrillic / Armenian style — these
+  // are real alphabets from outside the Latin-script family.
+
+  // Gothic (5) — U+10330..U+1034F
+  {
+    slug: "gothic",
+    name: "Gothic",
+    description: "Real Gothic alphabet letterforms — visually distinct from Fraktur.",
+    category: "decorative",
+    map: gothic,
+    preview: gothic("Hello"),
+  },
+  {
+    slug: "gothic-strikethrough",
+    name: "Gothic Strikethrough",
+    description: "Gothic alphabet letters with a line struck through each.",
+    category: "decorative",
+    map: gothicStrikethrough,
+    preview: gothicStrikethrough("Hello"),
+  },
+  {
+    slug: "gothic-underline",
+    name: "Gothic Underline",
+    description: "Gothic alphabet letters with each letter underlined.",
+    category: "decorative",
+    map: gothicUnderline,
+    preview: gothicUnderline("Hello"),
+  },
+  {
+    slug: "gothic-double-underline",
+    name: "Gothic Double Underline",
+    description: "Gothic alphabet letters with each letter double-underlined.",
+    category: "decorative",
+    map: gothicDoubleUnderline,
+    preview: gothicDoubleUnderline("Hello"),
+  },
+  {
+    slug: "gothic-dot-above",
+    name: "Gothic Dot Above",
+    description: "Gothic alphabet letters topped with a typographic dot.",
+    category: "decorative",
+    map: gothicDotAbove,
+    preview: gothicDotAbove("Hello"),
+  },
+
+  // Runic (5) — U+16A0..U+16F0
+  {
+    slug: "runic",
+    name: "Runic",
+    description: "Viking / Old Norse rune alphabet letterforms.",
+    category: "decorative",
+    map: runic,
+    preview: runic("Hello"),
+  },
+  {
+    slug: "runic-strikethrough",
+    name: "Runic Strikethrough",
+    description: "Rune letters with a line struck through each.",
+    category: "decorative",
+    map: runicStrikethrough,
+    preview: runicStrikethrough("Hello"),
+  },
+  {
+    slug: "runic-underline",
+    name: "Runic Underline",
+    description: "Rune letters with each letter underlined.",
+    category: "decorative",
+    map: runicUnderline,
+    preview: runicUnderline("Hello"),
+  },
+  {
+    slug: "runic-double-underline",
+    name: "Runic Double Underline",
+    description: "Rune letters with each letter double-underlined.",
+    category: "decorative",
+    map: runicDoubleUnderline,
+    preview: runicDoubleUnderline("Hello"),
+  },
+  {
+    slug: "runic-dot-above",
+    name: "Runic Dot Above",
+    description: "Rune letters topped with a typographic dot.",
+    category: "decorative",
+    map: runicDotAbove,
+    preview: runicDotAbove("Hello"),
+  },
+
+  // Cherokee (3) — U+13A0..U+13FF
+  {
+    slug: "cherokee",
+    name: "Cherokee",
+    description: "Cherokee syllabary letters — geometric, exotic, distinctive.",
+    category: "decorative",
+    map: cherokee,
+    preview: cherokee("Hello"),
+  },
+  {
+    slug: "cherokee-strikethrough",
+    name: "Cherokee Strikethrough",
+    description: "Cherokee syllabary letters with a line struck through each.",
+    category: "decorative",
+    map: cherokeeStrikethrough,
+    preview: cherokeeStrikethrough("Hello"),
+  },
+  {
+    slug: "cherokee-underline",
+    name: "Cherokee Underline",
+    description: "Cherokee syllabary letters with each letter underlined.",
+    category: "decorative",
+    map: cherokeeUnderline,
+    preview: cherokeeUnderline("Hello"),
+  },
+
+  // Vai (3) — U+A500..U+A63F
+  {
+    slug: "vai",
+    name: "Vai",
+    description: "Vai syllabary letters — West African script.",
+    category: "decorative",
+    map: vai,
+    preview: vai("Hello"),
+  },
+  {
+    slug: "vai-strikethrough",
+    name: "Vai Strikethrough",
+    description: "Vai syllabary letters with a line struck through each.",
+    category: "decorative",
+    map: vaiStrikethrough,
+    preview: vaiStrikethrough("Hello"),
+  },
+  {
+    slug: "vai-underline",
+    name: "Vai Underline",
+    description: "Vai syllabary letters with each letter underlined.",
+    category: "decorative",
+    map: vaiUnderline,
+    preview: vaiUnderline("Hello"),
+  },
+
+  // Tifinagh (2) — U+2D30..U+2D7F
+  {
+    slug: "tifinagh",
+    name: "Tifinagh",
+    description: "Berber / Amazigh alphabet — geometric circles and lines.",
+    category: "decorative",
+    map: tifinagh,
+    preview: tifinagh("Hello"),
+  },
+  {
+    slug: "tifinagh-strikethrough",
+    name: "Tifinagh Strikethrough",
+    description: "Tifinagh letters with a line struck through each.",
+    category: "decorative",
+    map: tifinaghStrikethrough,
+    preview: tifinaghStrikethrough("Hello"),
+  },
+
+  // NOTE: Deseret (U+10400..U+1044F) and Osmanya (U+10480..U+1049F) were
+  // removed in v7.1 — neither block has reliable cross-platform font
+  // coverage (no Google Fonts version, no default system installation on
+  // Windows / Linux / most mobile). Tofu boxes were rendering on most
+  // non-macOS systems.
 ];
 
 /**

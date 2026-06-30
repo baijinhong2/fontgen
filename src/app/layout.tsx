@@ -5,6 +5,24 @@ import { Footer } from "@/components/Footer";
 import { StructuredData } from "@/components/StructuredData";
 import { BRAND_NAME, DEFAULT_OG_IMAGE, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_URL } from "@/lib/seo";
 
+// Noto Sans webfonts for the exotic-script styles that have no reliable
+// system-font coverage on Windows / Linux / mobile. macOS ships native fonts
+// for Gothic / Cherokee / Vai / Tifinagh, but Runic is missing everywhere —
+// so Runic especially benefits from this load. Loaded via Google Fonts CDN
+// (which self-hosts at build time when next/font/google is wired up; here
+// we fall back to a plain <link> tag that browsers fetch at runtime).
+//
+// Each font is requested with `subset=...` for its Unicode range so the
+// browser only downloads the script-specific .woff2 (~10-40KB each).
+const NOTO_FONTS_HREF =
+  "https://fonts.googleapis.com/css2" +
+  "?family=Noto+Sans+Runic" +
+  "&family=Noto+Sans+Gothic" +
+  "&family=Noto+Sans+Cherokee:wght@400" +
+  "&family=Noto+Sans+Vai" +
+  "&family=Noto+Sans+Tifinagh" +
+  "&display=swap";
+
 // Mobile browser top-bar color (Safari iOS, Chrome Android, Edge).
 // Moved out of `metadata` because Next.js 15+ puts viewport-related
 // fields in a dedicated `viewport` export.
@@ -127,6 +145,8 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <head>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href={NOTO_FONTS_HREF} />
         <StructuredData data={websiteJsonLd} />
       </head>
       <body className="flex min-h-full flex-col bg-bg font-sans text-ink antialiased">
