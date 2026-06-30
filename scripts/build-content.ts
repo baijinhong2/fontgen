@@ -196,6 +196,12 @@ const PAGES: PageDef[] = [
     ["currency", "currency", "comparison"],
     ["wave", "wave", "creative"],
     ["macron", "macron", "comparison"],
+    // P3 — high-ROI long-tail styles (v8+)
+    ["calligraphy", "bold-cursive", "use-case"],
+    ["freaky", "freaky", "creative"],
+    ["metal", "bold-fraktur", "creative"],
+    ["comic-sans", "sans-serif", "creative"],
+    ["impact", "bold", "comparison"],
   ].map(([slug, styleSlug, angle]) => ({
     key: `fonts.${slug}`,
     type: "fonts" as const,

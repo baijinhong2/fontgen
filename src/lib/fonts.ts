@@ -1238,6 +1238,67 @@ const tifinagh = (s: string) =>
 const tifinaghStrikethrough = compose(tifinagh, "̶");
 
 // ---------------------------------------------------------------------------
+// Group Q: Zalgo / Freaky — stacks many combining diacritics on each
+// character for the classic "corrupted text" look popular on imageboards,
+// meme culture, and creepy-horror typography.
+// ---------------------------------------------------------------------------
+
+/**
+ * Zalgo combining marks drawn from the Combining Diacritical Marks block
+ * (U+0300..U+036F). We mix above, through, and below marks for the
+ * characteristic "bleeding" effect that grows outward from each character.
+ */
+const ZALGO_MARKS: string[] = [
+  "\u0300", "\u0301", "\u0302", "\u0303", "\u0304", "\u0305", "\u0306", "\u0307",
+  "\u0308", "\u0309", "\u030A", "\u030B", "\u030C", "\u030D", "\u030E", "\u030F",
+  "\u0310", "\u0311", "\u0312", "\u0313", "\u0314", "\u0315", "\u0316", "\u0317",
+  "\u0318", "\u0319", "\u031A", "\u031B", "\u031C", "\u031D", "\u031E", "\u031F",
+  "\u0320", "\u0321", "\u0322", "\u0323", "\u0324", "\u0325", "\u0326", "\u0327",
+  "\u0328", "\u0329", "\u032A", "\u032B", "\u032C", "\u032D", "\u032E", "\u032F",
+  "\u0330", "\u0331", "\u0332", "\u0333", "\u0334", "\u0335", "\u0336", "\u0337",
+  "\u0338", "\u0339", "\u033A", "\u033B", "\u033C", "\u033D", "\u033E", "\u033F",
+  "\u0340", "\u0341", "\u0342", "\u0343", "\u0344", "\u0345", "\u0346", "\u0347",
+  "\u0348", "\u0349", "\u034A", "\u034B", "\u034C", "\u034D", "\u034E", "\u034F",
+  "\u0350", "\u0351", "\u0352", "\u0353", "\u0354", "\u0355", "\u0356", "\u0357",
+  "\u0358", "\u0359", "\u035A", "\u035B", "\u035C", "\u035D", "\u035E", "\u035F",
+  "\u0360", "\u0361", "\u0362", "\u0363", "\u0364", "\u0365", "\u0366", "\u0367",
+  "\u0368", "\u0369", "\u036A", "\u036B", "\u036C", "\u036D", "\u036E", "\u036F",
+];
+
+/**
+ * Deterministic Zalgo mapper. Stacks `marksPerChar` combining marks per
+ * character, picking each mark from a hash of the character's code point
+ * — this keeps output stable across SSR and CSR renders (otherwise
+ * `Math.random()` would produce different Zalgo on server vs client and
+ * trigger React hydration mismatches).
+ */
+function zalgoMap(input: string, marksPerChar: number): string {
+  return Array.from(input)
+    .map((c) => {
+      const code = c.codePointAt(0) ?? 0;
+      if (
+        code <= 0x20 ||
+        (code >= 0xd800 && code <= 0xdfff) ||
+        c === "\n" ||
+        c === "\r"
+      ) {
+        return c;
+      }
+      let out = c;
+      // Knuth's multiplicative hash — gives a stable pseudo-random per char.
+      let h = code * 2654435761;
+      for (let i = 0; i < marksPerChar; i++) {
+        h = (h * 2654435761 + i) >>> 0;
+        out += ZALGO_MARKS[h % ZALGO_MARKS.length];
+      }
+      return out;
+    })
+    .join("");
+}
+
+const freaky = (s: string) => zalgoMap(s, 8);
+
+// ---------------------------------------------------------------------------
 // Registry
 // ---------------------------------------------------------------------------
 
@@ -2578,6 +2639,19 @@ export const FONT_STYLES: readonly FontStyle[] = [
     category: "decorative",
     map: tifinaghStrikethrough,
     preview: tifinaghStrikethrough("Hello"),
+  },
+
+  // ---- v8 addition: Zalgo / Freaky (stacked combining marks) ----
+  // The classic "bleeding text" / corrupted-text effect. Deterministic per
+  // character so SSR and CSR produce identical output (no hydration
+  // mismatch from Math.random()).
+  {
+    slug: "freaky",
+    name: "Freaky",
+    description: "Zalgo / glitched text — each letter covered in stacked combining marks.",
+    category: "decorative",
+    map: freaky,
+    preview: freaky("Hello"),
   },
 
   // NOTE: Deseret (U+10400..U+1044F) and Osmanya (U+10480..U+1049F) were

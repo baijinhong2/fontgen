@@ -87,6 +87,15 @@ export const FONT_LANDING_PAGES: readonly FontLandingPage[] = [
   { slug: "currency", styleSlug: "currency", keyword: "currency font generator", intentType: "style", vol: 1100 },
   { slug: "wave", styleSlug: "wave", keyword: "wave font generator", intentType: "style", vol: 880 },
   { slug: "macron", styleSlug: "macron", keyword: "macron font generator", intentType: "style", vol: 720 },
+
+  // P3 — high-ROI long-tail styles from CSV analysis (vol × (1 - KD/100)).
+  // Each maps to an existing Unicode style or a freshly-added mapper
+  // (freaky → Zalgo combiner added in v8).
+  { slug: "calligraphy", styleSlug: "bold-cursive", keyword: "calligraphy font generator", intentType: "style", vol: 8100 },
+  { slug: "freaky", styleSlug: "freaky", keyword: "freaky font generator", intentType: "style", vol: 4400 },
+  { slug: "metal", styleSlug: "bold-fraktur", keyword: "metal font generator", intentType: "style", vol: 2400 },
+  { slug: "comic-sans", styleSlug: "sans-serif", keyword: "comic sans font generator", intentType: "style", vol: 1600 },
+  { slug: "impact", styleSlug: "bold", keyword: "impact font generator", intentType: "style", vol: 1600 },
 ];
 
 /**

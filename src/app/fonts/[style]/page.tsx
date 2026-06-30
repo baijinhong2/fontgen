@@ -89,4 +89,10 @@ const SAMPLES: Record<string, string> = {
   currency: "Money",
   wave: "~~~~",
   macron: "āēī",
+  // v8 P3 long-tail pages
+  calligraphy: "Signature",
+  freaky: "Spooky",
+  metal: "Metal",
+  "comic-sans": "Casual",
+  impact: "HEADLINE",
 };
