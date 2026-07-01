@@ -28,7 +28,7 @@ const PAGE_META: Record<LegalKind, { path: string; title: string; description: s
   privacy: {
     path: "/privacy",
     title: `Privacy Policy - FontGen.art Free Font Generator`,
-    description: `FontGen.art's privacy policy. We do not collect, store, or transmit the text you type. Conversion happens entirely in your browser.`,
+    description: `FontGen.art's privacy policy. We do not collect, store, or transmit the text you type. We use Google Analytics for anonymous, aggregate usage analytics.`,
   },
   terms: {
     path: "/terms",
@@ -39,7 +39,7 @@ const PAGE_META: Record<LegalKind, { path: string; title: string; description: s
 
 const SUPPORT_EMAIL = "support@fontgen.art";
 // Manual keep-alive date so the policy stays current without a CMS.
-const POLICY_EFFECTIVE = "January 1, 2026";
+const POLICY_EFFECTIVE = "July 2, 2026";
 
 /**
  * Returns the page-specific Metadata for a legal route. Must be re-exported
@@ -159,13 +159,41 @@ export function LegalPage({ kind }: Props) {
 
           <H2>2. Cookies, local storage, and tracking</H2>
           <P>
-            FontGen.art does not set any cookies. The site does not use
+            The Site uses Google Analytics 4 (&quot;GA4&quot;), a web analytics
+            service provided by Google LLC, to understand how visitors
+            use the Site in the aggregate. GA4 sets a small number of
+            first-party cookies on your browser — primarily <em>_ga</em>{" "}
+            and <em>_ga_&lt;MEASUREMENT_ID&gt;</em> — that store a random client
+            identifier and the timestamps of your first and most recent
+            visit. These cookies expire after two years of inactivity
+            and are used only to distinguish unique visitors and
+            sessions. We do not set any other cookies, and we do not use
             localStorage, sessionStorage, IndexedDB, or any other browser
-            storage mechanism to record what you type. The site does not
-            load third-party analytics scripts, advertising scripts,
-            pixel tags, or session-replay tools. There are no tracking
-            cookies, no fingerprinting, and no cross-site identifiers
-            placed by FontGen.art.
+            storage mechanism to record the text you type into the font
+            generator.
+          </P>
+          <P>
+            GA4 receives standard request metadata (the page URL you
+            visit, the referring page, your browser&apos;s user-agent string,
+            and your IP address, which Google truncates before storage)
+            and aggregates it into the reports we see in our analytics
+            dashboard. We have disabled Google Signals, Advertising
+            Features, and all cross-device personalization in our GA4
+            property, so the data is not used to build a profile of you
+            across other sites and is not shared with Google&apos;s
+            advertising products. The Site does not run any advertising
+            pixels, social-media trackers, session-replay tools, or
+            fingerprinting scripts.
+          </P>
+          <P>
+            You can opt out of GA4 tracking at any time without affecting
+            your use of the Site by installing the Google Analytics
+            Opt-out Browser Add-on (available at{" "}
+            <A href="https://tools.google.com/dlpage/gaoptout">
+              tools.google.com/dlpage/gaoptout
+            </A>
+            ) or by enabling Global Privacy Control in a supported
+            browser.
           </P>
 
           <H2>3. How we use information</H2>
@@ -183,7 +211,23 @@ export function LegalPage({ kind }: Props) {
             provider receives the request metadata described in Section 1
             as part of serving the page. The CDN provider is contractually
             bound to use this metadata only for the purpose of operating
-            the service. The Site may link to third-party platforms
+            the service.
+          </P>
+          <P>
+            The Site uses Google Analytics 4 (&quot;GA4&quot;), a web analytics
+            service operated by Google LLC. GA4 acts as a data processor
+            for the limited analytics data described in Section 2.
+            Google may transfer and store this data on servers located
+            outside your state of residence, including in the United
+            States. Google&apos;s handling of the data is governed by the{" "}
+            <A href="https://policies.google.com/privacy">Google Privacy Policy</A>{" "}
+            and the{" "}
+            <A href="https://business.safety.google/processorterms/">Google Ads Data Processing Terms</A>{" "}
+            (or successor terms), which provide the data-protection
+            commitments we rely on.
+          </P>
+          <P>
+            The Site may link to third-party platforms
             (Instagram, TikTok, Discord, X, Facebook, and similar) but
             FontGen.art does not embed content from those platforms,
             does not place cookies on their behalf, and does not receive
@@ -202,6 +246,13 @@ export function LegalPage({ kind }: Props) {
             Request metadata logs are retained by our hosting provider
             for the minimum period required to operate the service (no
             more than 30 days) and are then deleted or anonymized.
+            Google Analytics 4 retains user-level events for 14 months
+            (the default for our property); after that period the
+            underlying event records are automatically deleted or fully
+            aggregated, while aggregate reports that contain no
+            per-user data may persist indefinitely.
+          </P>
+          <P>
             Email correspondence is retained only as long as necessary
             to address your inquiry and is then deleted from active
             systems; archived copies may persist in standard backup
@@ -210,13 +261,33 @@ export function LegalPage({ kind }: Props) {
 
           <H2>6. Your rights</H2>
           <P>
-            Because we do not collect personal data through the Site, most
-            data-subject rights (access, deletion, portability) do not
-            apply in the typical sense. If you have contacted us by
-            email and would like a copy of the correspondence, or would
-            like that correspondence deleted, write to{" "}
+            The Site collects only limited analytics data through Google
+            Analytics and the request metadata described in Section 1;
+            we do not maintain a personal profile of you, and we do not
+            sell or share your information for advertising purposes.
+            Depending on where you live, you may nevertheless have
+            rights over the limited personal information we do process.
+          </P>
+          <P>
+            California residents have the rights described in the
+            California Consumer Privacy Act, as amended by the CPRA,
+            including the right to know what categories of personal
+            information we have collected about you, the right to delete
+            personal information we have collected, the right to correct
+            inaccurate personal information, and the right to opt out of
+            any sale or sharing of personal information. We do not sell
+            or share personal information, and we do not use automated
+            decision-making that produces legal or similarly significant
+            effects. We honor Global Privacy Control signals as opt-out
+            requests where required by applicable law.
+          </P>
+          <P>
+            To exercise any of these rights, email{" "}
             <A href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</A>{" "}
-            and we will action your request within 30 days.
+            with a description of your request. We may need to verify
+            your identity before fulfilling a request and will respond
+            within the period required by applicable law (45 days under
+            the CCPA, extendable once by 45 days with notice).
           </P>
 
           <H2>7. Children's privacy</H2>
