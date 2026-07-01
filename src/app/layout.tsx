@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { StructuredData } from "@/components/StructuredData";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { BRAND_NAME, DEFAULT_OG_IMAGE, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_URL } from "@/lib/seo";
 
 // Noto Sans webfonts for the exotic-script styles that have no reliable
@@ -150,6 +151,7 @@ export default function RootLayout({
         <StructuredData data={websiteJsonLd} />
       </head>
       <body className="flex min-h-full flex-col bg-bg font-sans text-ink antialiased">
+        <GoogleAnalytics />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
