@@ -96,6 +96,12 @@ export const FONT_LANDING_PAGES: readonly FontLandingPage[] = [
   { slug: "metal", styleSlug: "bold-fraktur", keyword: "metal font generator", intentType: "style", vol: 2400 },
   { slug: "comic-sans", styleSlug: "sans-serif", keyword: "comic sans font generator", intentType: "style", vol: 1600 },
   { slug: "impact", styleSlug: "bold", keyword: "impact font generator", intentType: "style", vol: 1600 },
+
+  // P4 — long-tail family variants and reverse-keyword forms.
+  // font-meme and fancy-fraktur mirror existing mappers (squared, bold-fraktur)
+  // but target distinct keyword strings / search intents.
+  { slug: "font-meme", styleSlug: "squared", keyword: "font meme generator", intentType: "style", vol: 880 },
+  { slug: "fancy-fraktur", styleSlug: "bold-fraktur", keyword: "fancy fraktur font generator", intentType: "style", vol: 720 },
 ];
 
 /**

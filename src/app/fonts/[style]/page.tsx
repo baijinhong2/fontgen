@@ -95,4 +95,7 @@ const SAMPLES: Record<string, string> = {
   metal: "Metal",
   "comic-sans": "Casual",
   impact: "HEADLINE",
+  // v9 P4 long-tail variants
+  "font-meme": "lol",
+  "fancy-fraktur": "Fancy",
 };
